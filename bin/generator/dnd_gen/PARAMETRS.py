@@ -1,4 +1,4 @@
-SKILL_ABILITIES = {
+SKILL_ABILITIES: dict[str, str] = {
     "acrobatics": "dex",
     "animal_handling": "wis",
     "arcana": "int",
@@ -17,4 +17,15 @@ SKILL_ABILITIES = {
     "sleight_of_hand": "dex",
     "stealth": "dex",
     "survival": "wis",
+}
+
+PHYSICAL_PROPERTIES_FEATS_BONUSES: dict[str, int] = {
+    "speed": 5,
+    "AC": 1,
+    "power": 0,
+    "attention": 2,
+    "climb": 25,
+    "swim": 25,
+    "initiative": 2,
+    "HP": 10
 }

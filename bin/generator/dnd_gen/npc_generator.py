@@ -1,6 +1,6 @@
 import random
-from generator.dnd_gen.staff.born_statuses import BIRTH_STATUS_TABLE, BirthStatus, BIRTH_FEATS_TABLE
-from generator.dnd_gen.staff.born_feats import FEATS_TABLE, ARCANE_PROPERTIES_FEATS, CreatorBirthFeat
+from staff.born_statuses import BIRTH_STATUS_TABLE, BirthStatus, BIRTH_FEATS_TABLE
+from staff.born_feats import FEATS_TABLE, ARCANE_PROPERTIES_FEATS_KEY, CreatorBirthFeat
 
 class DndNpcGenerator:
     def __init__(self):
@@ -11,7 +11,6 @@ class DndNpcGenerator:
        result = random.randint(1,6) + random.randint(1,6)
        return result
 
-    @property
     def stage_birth_generate(self) -> dict[str, BirthStatus]:
         return {'birth_obj' : self.__stage_birth_generate()}
 
@@ -28,13 +27,14 @@ class DndNpcGenerator:
         for count_feat in feats:
             for each_feat in range(count_feat):
                 if 10 <= self.roll_dices() <= 12:
-                    feats_dict = ARCANE_PROPERTIES_FEATS
+                    feats_dict = ARCANE_PROPERTIES_FEATS_KEY
+                    foo = CreatorBirthFeat.create_feat(feats_dict)
 
                 else:
                     feats_dict = FEATS_TABLE[random.randint(1, len(FEATS_TABLE))]
+                    foo = CreatorBirthFeat.create_feat(feats_dict[1])
 
-                foo = CreatorBirthFeat.create_feat(feats_dict)
-                feat = foo(feats_dict[random.randint(1, len(feats_dict))], bonus)
+                feat = foo(feats_dict, bonus)
 
 
                 birth_status.birth_feats_list.append(feat)

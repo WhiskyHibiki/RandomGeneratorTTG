@@ -1,12 +1,11 @@
-from generator.dnd_gen.npc_generator import DndNpcGenerator
+from npc_generator import DndNpcGenerator
 from classes.class_NPC_DND import DndNpc
 
 
 arbiter = DndNpcGenerator()
 char = DndNpc()
 
-char.character_traits = arbiter.stage_birth_generate
-
+char.character_traits = arbiter.stage_birth_generate()
 
 for trait_name, birth_status in char.character_traits.items():
     print(f"Trait: {trait_name}")
