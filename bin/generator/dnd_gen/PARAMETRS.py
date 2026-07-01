@@ -18,4 +18,3 @@ SKILL_ABILITIES = {
     "stealth": "dex",
     "survival": "wis",
 }
-

@@ -1,3 +1,5 @@
+from staff.born_statuses import BirthStatus
+
 class DndNpc:
     def __init__(self):
         self.__name:    str | None  = None
@@ -8,18 +10,17 @@ class DndNpc:
         self.__background:  object | None   = None
         self.__class:       object | None   = None
 
-        self.__character_traits: dict[str, object | None] = {}
+        self.__character_traits: dict[str, BirthStatus] = {}
 
         self.__stats: dict[str, int | None] = {
-            "STR": None,
-            "DEX": None,
-            "CON": None,
-            "INT": None,
-            "WIS": None,
-            "CHA": None
+            "STR": 0,
+            "DEX": 0,
+            "CON": 0,
+            "INT": 0,
+            "WIS": 0,
+            "CHA": 0
         }
 
-        # 0 — нет владения 1 — владение 2 — экспертность
         self.skills: dict[str, int] = {
             "acrobatics": 0,
             "animal_handling": 0,
@@ -64,11 +65,11 @@ class DndNpc:
         self.__age = age
 
     @property
-    def character_traits(self) -> dict[str, object | None]:
+    def character_traits(self) -> dict[str, BirthStatus]:
         return self.__character_traits
 
     @character_traits.setter
-    def character_traits(self, character_traits: dict[str, object | None]) -> None:
+    def character_traits(self, character_traits: dict[str, BirthStatus]) -> None:
         if character_traits is None:
             raise ValueError("character_traits is >>> None")
         self.__character_traits.update(character_traits)
