@@ -1,6 +1,6 @@
 from abc import ABC
 from collections.abc import Callable
-from generator.dnd_gen.stages.stage_birth.born_feats import BornFeat, ArcaneBornFeat
+from generator.dnd_gen.stages.stage_birth.birth_feats import BirthFeatBase
 
 class BirthStatus(ABC):
     def __init__(self, name: str, result: int):
@@ -8,7 +8,7 @@ class BirthStatus(ABC):
         self.__status_name: str = name
 
         self.__birth_feats_result:          int = 0
-        self.__birth_feats_list:   list[ BornFeat | ArcaneBornFeat] = []
+        self.__birth_feats_list:   list[BirthFeatBase] = []
 
     @property
     def status_name(self) -> str:
@@ -18,7 +18,7 @@ class BirthStatus(ABC):
         self.__status_name = name
 
     @property
-    def birth_feats_list(self) -> list[ BornFeat | ArcaneBornFeat]:
+    def birth_feats_list(self) -> list[BirthFeatBase]:
         return self.__birth_feats_list
 
     @property

@@ -1,15 +1,18 @@
 import random
+from dataclasses import dataclass
 
-from generator.dnd_gen.stages.stage_birth.born_statuses import (
+from generator.dnd_gen.stages.stage_birth.birth_statuses import (
     BIRTH_STATUS_TABLE,
     BIRTH_FEATS_TABLE,
     BirthStatus,
 )
-from generator.dnd_gen.stages.stage_birth.born_feats import (
-    FEATS_TABLE,
-    ARCANE_PROPERTIES_FEATS_KEY,
-    CreatorBirthFeat,
-)
+from generator.dnd_gen.stages.stage_birth.birth_feats import CreatorBirthFeat, FeatSlotKind, GIFT_SLOT, CURSE_SLOT
+
+@dataclass
+class BirthFeatGroup:
+    slot_kind: FeatSlotKind
+    count_feat: int
+    bonus_sign: int
 
 class BirthStageGenerator:
     @staticmethod
@@ -27,22 +30,23 @@ class BirthStageGenerator:
 
         feats_roll = self.roll_2d6()
         birth_status.birth_feats_result(feats_roll)
+        gift_count, curse_count = BIRTH_FEATS_TABLE[feats_roll]
 
-        feats = BIRTH_FEATS_TABLE[feats_roll]
-        bonus = 1
+        feat_groups: tuple[BirthFeatGroup, ...] = (
+            BirthFeatGroup(slot_kind=GIFT_SLOT, count_feat=gift_count, bonus_sign=1),
+            BirthFeatGroup(slot_kind=CURSE_SLOT, count_feat=curse_count, bonus_sign=-1),
+        )
 
-        for count_feat in feats:
-            for _ in range(count_feat):
-                if 10 <= self.roll_2d6() <= 12:
-                    feats_dict = ARCANE_PROPERTIES_FEATS_KEY
-                    feat_creator = CreatorBirthFeat.create_feat(feats_dict)
-                else:
-                    feats_dict = FEATS_TABLE[random.randint(1, len(FEATS_TABLE))]
-                    feat_creator = CreatorBirthFeat.create_feat(feats_dict[1])
+        for feat_group in feat_groups:
+            for _ in range(feat_group.count_feat):
+                feat_roll = self.roll_2d6()
 
-                feat = feat_creator(feats_dict, bonus)
+                feat = CreatorBirthFeat.create_birth_feat(
+                    slot_kind=feat_group.slot_kind,
+                    feat_roll=feat_roll,
+                    bonus=feat_group.bonus_sign,
+                )
+
                 birth_status.birth_feats_list.append(feat)
-
-            bonus = -bonus
 
         return birth_status
