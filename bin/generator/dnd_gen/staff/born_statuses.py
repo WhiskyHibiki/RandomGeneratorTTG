@@ -1,4 +1,5 @@
 from abc import ABC
+from collections.abc import Callable
 from generator.dnd_gen.staff.born_feats import BornFeat, ArcaneBornFeat
 
 class BirthStatus(ABC):
@@ -54,3 +55,31 @@ class Noble(BirthStatus):
     def __init__(self, result: int):
         super().__init__("Дворянство", result)
 
+
+BIRTH_STATUS_TABLE: dict[int, Callable[[int], BirthStatus]] = {
+    2: Outcast,
+    3: Peasant,
+    4: Peasant,
+    5: Peasant,
+    6: Peasant,
+    7: Peasant,
+    8: Artisan,
+    9: Artisan,
+    10: Wealthy,
+    11: Wealthy,
+    12: Noble,
+}
+
+BIRTH_FEATS_TABLE: dict[int, tuple[int, int]] = {
+    2:  (0, 3),
+    3:  (1, 3),
+    4:  (1, 2),
+    5:  (1, 2),
+    6:  (1, 1),
+    7:  (1, 1),
+    8:  (1, 1),
+    9:  (2, 1),
+    10: (2, 1),
+    11: (3, 1),
+    12: (3, 0),
+}

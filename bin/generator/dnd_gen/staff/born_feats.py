@@ -91,3 +91,12 @@ class CreatorBirthFeat:
             description=arcana_dict["arcana_description"]
         )
 
+SPECIAL_FEATS_TABLE: dict[int, tuple[FeatType, dict[int, str]]] = {
+    1: ("arcana", ARCANE_PROPERTIES_FEATS_KEY),
+}
+
+FEATS_TABLE: dict[int, tuple[FeatType, dict[int, str]]] = {
+    1: ("stat", STAT_FEATS),
+    2: ("skill", SKILL_FEATS),
+    3: ("physical", PHYSICAL_PROPERTIES_FEATS),
+}
