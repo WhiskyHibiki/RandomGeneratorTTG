@@ -1,4 +1,4 @@
-from generator.dnd_gen.stages.stage_born.born_statuses import BirthStatus
+from generator.dnd_gen.stages.stage_birth.born_statuses import BirthStatus
 
 class DndNpc:
     def __init__(self):
