@@ -1,4 +1,4 @@
-from npc_generator import DndNpcGenerator
+from generator.dnd_gen.npc_generator import DndNpcGenerator
 from classes.class_NPC_DND import DndNpc
 
 

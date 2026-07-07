@@ -1,10 +1,9 @@
 from dataclasses import dataclass
 import random
-from typing import Literal
 from collections.abc import Callable
-
-
-FeatType = Literal["stat", "skill", "physical", "arcana"]
+from generator.dnd_gen.staff.BORN_PARAMETRS import (FeatType, STAT_FEATS, PHYSICAL_PROPERTIES_FEATS,
+                                                    ARCANE_PROPERTIES_FEATS_KEY, ARCANE_PROPERTIES_FEATS_FEATURE,
+                                                    SKILL_FEATS)
 
 @dataclass(frozen=True)
 class BirthBaseFeatClass:
@@ -59,18 +58,24 @@ class CreatorBirthFeat:
         raise ValueError(f"Unknown feat table: {arg_dict}")
 
     @staticmethod
-    def create_feat_by_type(stat: tuple[FeatType, dict[int, str]], multiplier: int) -> BornFeat:
-        stat_name, stat_dict = stat[0], stat[1]
-        stat = stat_dict[random.randint(1, len(stat_dict))]
+    def create_feat_by_type(feat_table: tuple[FeatType, dict[int, str]], multiplier: int) -> BornFeat:
+        feat_type, feat_dict = feat_table
+        target = feat_dict[random.randint(1, len(feat_dict))]
+
+        formatted_target = target.replace("_", " ").title()
+
         return BornFeat(
             name=(
                 f"{'Gift' if multiplier > 0 else 'Curse'} "
-                f"of {stat_name.title()}"
+                f"of {formatted_target}"
             ),
-            target_type=stat_name,
-            target=stat_name,
+            target_type=feat_type,
+            target=target,
             bonus=multiplier,
-            description= f"Upon creation, the character receives a {multiplier:+} bonus to {stat.replace('_', ' ').title()}."
+            description=(
+                f"Upon creation, the character receives "
+                f"a {multiplier:+} bonus to {formatted_target}."
+            )
         )
 
     @staticmethod
@@ -86,62 +91,3 @@ class CreatorBirthFeat:
             description=arcana_dict["arcana_description"]
         )
 
-STAT_FEATS: dict[int, str] = {
-    1: "strength",
-    2: "dexterity",
-    3: "constitution",
-    4: "intelligence",
-    5: "wisdom",
-    6: "charisma",
-}
-
-PHYSICAL_PROPERTIES_FEATS: dict[int, str] = {
-    1: "speed",
-    2: "AC",
-    3: "power",
-    4: "attention",
-    5: "climb",
-    6: "swim",
-    7: "initiative",
-    8: "HP"
-}
-
-ARCANE_PROPERTIES_FEATS_KEY: dict[int, str] = {
-    1: "arcana_name"
-}
-
-ARCANE_PROPERTIES_FEATS_FEATURE : dict[str, dict[str, str]] = {
-    "arcana_name": {"arcana_name": "arcana_name", "arcana_description": "arcana_description"}
-}
-
-SKILL_FEATS: dict[int, str] = {
-    1: "acrobatics",
-    2: "animal_handling",
-    3: "arcana",
-    4: "athletics",
-    5: "deception",
-    6: "history",
-    7: "insight",
-    8: "intimidation",
-    9: "investigation",
-    10: "medicine",
-    11: "nature",
-    12: "perception",
-    13: "performance",
-    14: "persuasion",
-    15: "religion",
-    16: "sleight_of_hand",
-    17: "stealth",
-    18: "survival",
-}
-
-
-FEATS_TABLE: dict[int, tuple[FeatType, dict[int, str]]] = {
-    1: ("stat", STAT_FEATS),
-    2: ("skill", SKILL_FEATS),
-    3: ("physical", PHYSICAL_PROPERTIES_FEATS),
-}
-
-SPECIAL_FEATS_TABLE: dict[int, tuple[FeatType, dict[int, str]]] = {
-    1: ("arcana", ARCANE_PROPERTIES_FEATS_KEY),
-}

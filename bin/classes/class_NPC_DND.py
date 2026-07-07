@@ -1,4 +1,4 @@
-from staff.born_statuses import BirthStatus
+from generator.dnd_gen.staff.born_statuses import BirthStatus
 
 class DndNpc:
     def __init__(self):
