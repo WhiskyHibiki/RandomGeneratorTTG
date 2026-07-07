@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 import random
 from collections.abc import Callable
-from generator.dnd_gen.staff.BORN_PARAMETRS import (FeatType, STAT_FEATS, PHYSICAL_PROPERTIES_FEATS,
-                                                    ARCANE_PROPERTIES_FEATS_KEY, ARCANE_PROPERTIES_FEATS_FEATURE,
-                                                    SKILL_FEATS)
+from generator.dnd_gen.stages.stage_born.staff.__init__ import (FeatType, STAT_FEATS, PHYSICAL_PROPERTIES_FEATS,
+                                                                ARCANE_PROPERTIES_FEATS_KEY, ARCANE_PROPERTIES_FEATS_FEATURE,
+                                                                SKILL_FEATS)
 
 @dataclass(frozen=True)
 class BirthBaseFeatClass:

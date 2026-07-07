@@ -1,6 +1,6 @@
 import random
-from generator.dnd_gen.staff.born_statuses import BIRTH_STATUS_TABLE, BirthStatus, BIRTH_FEATS_TABLE
-from generator.dnd_gen.staff.born_feats import FEATS_TABLE, ARCANE_PROPERTIES_FEATS_KEY, CreatorBirthFeat
+from generator.dnd_gen.stages.stage_born.born_statuses import BIRTH_STATUS_TABLE, BirthStatus, BIRTH_FEATS_TABLE
+from generator.dnd_gen.stages.stage_born.born_feats import FEATS_TABLE, ARCANE_PROPERTIES_FEATS_KEY, CreatorBirthFeat
 
 class DndNpcGenerator:
     def __init__(self):

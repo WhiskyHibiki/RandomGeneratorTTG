@@ -1,6 +1,6 @@
 from abc import ABC
 from collections.abc import Callable
-from generator.dnd_gen.staff.born_feats import BornFeat, ArcaneBornFeat
+from generator.dnd_gen.stages.stage_born.born_feats import BornFeat, ArcaneBornFeat
 
 class BirthStatus(ABC):
     def __init__(self, name: str, result: int):
